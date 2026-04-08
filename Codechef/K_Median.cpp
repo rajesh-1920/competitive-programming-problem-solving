@@ -20,19 +20,36 @@ const int N = 1e5 + 10;
 //------------------------------(solve)----------------------------------------------------
 void solve(void)
 {
+  int n, k;
+  cin >> n >> k;
+  vector<int> v(n);
+  for (auto &it : v)
+    cin >> it;
+  sort(all(v));
+  set<int> st;
+  for (int i = (n - k - 1) / 2; i < n; i++)
+  {
+    if (k == -1)
+      break;
+    st.insert(v[i]);
+    k--;
+  }
+  for (auto &it : st)
+    cout << it << ' ';
+  cout << '\n';
 }
 //-----------------------------------------------------------------------------------------
 signed main()
 {
-    // cout << fixed << showpoint << setprecision(10);
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL);
-    int test = 1, T;
-    // cin >> test;
-    for (T = 1; T <= test; T++)
-    {
-        // cout << "Case #" << T << ": ";
-        solve();
-    }
-    return 0;
+  // cout << fixed << showpoint << setprecision(10);
+  ios_base::sync_with_stdio(false);
+  cin.tie(NULL);
+  int test = 1, T;
+  cin >> test;
+  for (T = 1; T <= test; T++)
+  {
+    // cout << "Case #" << T << ": ";
+    solve();
+  }
+  return 0;
 }
