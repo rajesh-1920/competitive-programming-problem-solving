@@ -18,61 +18,54 @@ const int inf = 9e16 + 7;
 const int MOD = 1e9 + 7;
 const int N = 1e5 + 10;
 //------------------------------(solve)----------------------------------------------------
-void solve(void)
+map<pair<int, vector<int>>, int> mp;
+int ok(int i, vector<int> &v)
 {
-  int n, ans = 0, temp = 520;
-  cin >> n;
-  vector<int> v(n);
-
-  for (auto &it : v)
-    cin >> it;
-  for (int i = 2; i <= n; i++)
+  if (mp.count({i, v}))
+    return mp[{i, v}];
+  bool fl = true;
+  for (int j = 0; j < v.size(); j++)
   {
     map<int, int> mp;
     multiset<int> st;
-    for (int j = 0; j < i; j++)
-      mp[v[j]]++;
-    for (auto &it : mp)
-      st.insert(it.sc);
-
-    if ((*st.begin()) > 1)
+    for (int ii = j; ii < v.size(); ii++)
     {
-      st.erase(st.find(mp[v[i - 1]]));
-      mp[v[i - 1]]--;
-      if (mp[v[i - 1]])
-        st.insert(mp[v[i - 1]]);
-      v[i - 1] = temp;
-      temp++;
-      mp[v[i - 1]]++;
-      st.insert(mp[v[i - 1]]);
-      ans++;
-    }
-    for (int j = i; j < n; j++)
-    {
-      st.erase(st.find(mp[v[i - j]]));
-      mp[v[i - j]]--;
-      if (mp[v[i - j]])
-        st.insert(mp[v[i - j]]);
-
-      if (st.find(mp[v[j]]) != st.end())
-        st.erase(st.find(mp[v[j]]));
-      mp[v[j]]++;
-      st.insert(mp[v[j]]);
-      if ((*st.begin()) > 1)
+      // return -1;
+      if (v[ii] == -1)
+        break;
+      if (st.find(mp[v[ii]]) != st.end())
+        st.erase(st.find(mp[v[ii]]));
+      mp[v[ii]]++;
+      st.insert(mp[v[ii]]);
+      if (*st.begin() > 1)
       {
-        st.erase(st.find(cnt[v[j]]));
-        cnt[v[j]]--;
-        if (cnt[v[j]])
-          st.insert(cnt[v[j]]);
-        v[j] = temp;
-        temp++;
-        cnt[v[j]]++;
-        st.insert(cnt[v[j]]);
-        ans++;
+        fl = false;
+        break;
       }
     }
+    if (!fl)
+      break;
   }
-  cout << ans << '\n';
+  if (fl)
+    return 0;
+  if (i == v.size())
+    return MOD;
+  int ans = ok(i + 1, v);
+  int temp = v[i];
+  v[i] = -1;
+  ans = min(ans, ok(i + 1, v) + 1);
+  v[i] = temp;
+  return mp[{i, v}] = ans;
+}
+void solve(void)
+{
+  int n;
+  cin >> n;
+  vector<int> v(n);
+  for (auto &it : v)
+    cin >> it;
+  mp.clear();
+  cout << ok(0, v) << '\n';
 }
 //-----------------------------------------------------------------------------------------
 signed main()
