@@ -22,35 +22,21 @@ void solve(void)
 {
     int n;
     cin >> n;
-    multiset<int>temp;
-    for(int i=0;i<n;i++)
+    map<int, int> mp;
+    int ans = 0;
+    while (n--)
     {
-      int x;
-      cin>>x;
-      temp.insert(x);
+        int x, cnt = 0;
+        cin >> x;
+        while (x)
+        {
+            cnt++;
+            x /= 2;
+        }
+        ans += mp[cnt];
+        mp[cnt]++;
     }
-    int ans=0;
-    for(int i=2;i<=100;i++)
-    {
-       multiset<int>st;
-       for(auto it:temp)
-          st.insert(it);
-          int cnt=0;
-       while(st.size()>1)
-       {
-          int x=i-(*st.begin());
-          if(x<1)
-          break;
-          st.erase(st.begin());
-          if(st.find(x)!=st.end())
-          {
-             cnt++;
-             st.erase(st.find(x));
-          }
-       } 
-       ans=max(ans,cnt);
-    }
-    cout << ans << endl;
+    cout << ans << '\n';
 }
 //-----------------------------------------------------------------------------------------
 signed main()
