@@ -20,6 +20,31 @@ const int N = 1e5 + 10;
 //------------------------------(solve)----------------------------------------------------
 void solve(void)
 {
+    int n, k;
+    cin >> n >> k;
+    vector<int> v(n);
+    for (auto &it : v)
+        cin >> it;
+    int i = 0, j = n - 1;
+    while (i < j)
+    {
+        if (v[i] == v[j])
+            i++, j--;
+        else
+        {
+            if (v[i] == k)
+                i++;
+            else if (v[j] == k)
+                j--;
+            else
+            {
+                cout << "No\n";
+                return;
+            }
+        }
+    }
+
+    cout << "Yes\n";
 }
 //-----------------------------------------------------------------------------------------
 signed main()
@@ -28,7 +53,7 @@ signed main()
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
     int test = 1, T;
-    // cin >> test;
+     cin >> test;
     for (T = 1; T <= test; T++)
     {
         // cout << "Case #" << T << ": ";

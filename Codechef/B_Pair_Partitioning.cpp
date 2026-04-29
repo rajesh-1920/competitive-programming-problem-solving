@@ -18,8 +18,23 @@ const int inf = 9e16 + 7;
 const int MOD = 1e9 + 7;
 const int N = 1e5 + 10;
 //------------------------------(solve)----------------------------------------------------
+int ok(int a, int b)
+{
+    int ans = 1;
+    while (b > 0)
+    {
+        if (b & 1)
+            ans *= a;
+        a *= a;
+        b >>= 1;
+    }
+    return ans;
+}
 void solve(void)
 {
+    int n;
+    cin >> n;
+    cout << ok(2, n - 2) << '\n';
 }
 //-----------------------------------------------------------------------------------------
 signed main()
