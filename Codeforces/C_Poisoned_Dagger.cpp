@@ -14,16 +14,41 @@ using namespace std;
 #define rall(s) s.rbegin(), s.rend()
 
 const double eps = 1e-1;
-const int inf = 9e16 + 7;
+const int inf = 9e17 + 7;
 const int MOD = 1e9 + 7;
 const int N = 1e5 + 10;
 //-----------------------------------------------------------------------------------------
 void solve(void)
 {
-    int n;
-    cin >> n;
+    int n, h;
+    cin >> n >> h;
     vector<int> v(n);
-    // for(auto &it:v)cin>>it;
+    for (auto &it : v)
+        cin >> it;
+    sort(all(v));
+    int ans = inf, l = 0, r = inf;
+    while (l <= r)
+    {
+        int m = l + (r - l) / 2;
+        int fl = 0, s = m;
+        for (int i = 0; i + 1 < n; i++)
+        {
+            if (v[i] + m <= v[i + 1])
+                s += m;
+            else
+                s += v[i + 1] - v[i];
+            if (s >= h)
+            {
+                fl = 1;
+                break;
+            }
+        }
+        if (fl)
+            ans = m, r = m - 1;
+        else
+            l = m + 1;
+    }
+    cout << ans << '\n';
 }
 //-----------------------------------------------------------------------------------------
 signed main()
@@ -32,7 +57,7 @@ signed main()
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
     int test = 1, T;
-    // cin >> test;
+    cin >> test;
     for (T = 1; T <= test; T++)
     {
         // cout << "Case " << T << ": ";
