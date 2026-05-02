@@ -14,7 +14,7 @@ using namespace std;
 #define rall(s) s.rbegin(), s.rend()
 
 const double eps = 1e-1;
-const int inf = 9e17 + 7;
+const int inf = 1e18 + 7;
 const int MOD = 1e9 + 7;
 const int N = 1e5 + 10;
 //-----------------------------------------------------------------------------------------
@@ -30,20 +30,17 @@ void solve(void)
     while (l <= r)
     {
         int m = l + (r - l) / 2;
-        int fl = 0, s = m;
+        int s = m;
         for (int i = 0; i + 1 < n; i++)
         {
+            if (s >= h)
+                break;
             if (v[i] + m <= v[i + 1])
                 s += m;
             else
                 s += v[i + 1] - v[i];
-            if (s >= h)
-            {
-                fl = 1;
-                break;
-            }
         }
-        if (fl)
+        if (s >= h)
             ans = m, r = m - 1;
         else
             l = m + 1;
