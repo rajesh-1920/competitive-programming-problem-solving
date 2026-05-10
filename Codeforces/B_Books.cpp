@@ -20,10 +20,32 @@ const int N = 1e5 + 10;
 //-----------------------------------------------------------------------------------------
 void solve(void)
 {
-    int n;
-    cin >> n;
+    int n, t;
+    cin >> n >> t;
     vector<int> v(n);
-    // for(auto &it:v)cin>>it;
+    for (auto &it : v)
+        cin >> it;
+    int ans = 0, l = 0, r = n;
+    while (l <= r)
+    {
+        int m = l + (r - l) / 2, x = 0;
+        for (int i = 0; i < m; i++)
+            x += v[i];
+        int fl = (x <= t);
+        for (int i = m; i < n; i++)
+        {
+            if (fl)
+                break;
+            x -= v[i - m];
+            x += v[i];
+            fl = (x <= t);
+        }
+        if (fl)
+            ans = m, l = m + 1;
+        else
+            r = m - 1;
+    }
+    cout << ans;
 }
 //-----------------------------------------------------------------------------------------
 signed main()
