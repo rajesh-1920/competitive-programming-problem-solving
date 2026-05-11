@@ -18,12 +18,27 @@ const int inf = 9e16 + 7;
 const int MOD = 1e9 + 7;
 const int N = 1e5 + 10;
 //-----------------------------------------------------------------------------------------
+int ok(int n, vector<int> &mp, vector<int> &dp)
+{
+    if (n >= N)
+        return 0;
+    if (dp[n] != -1)
+        return dp[n];
+    int ans = ok(n + 1, mp, dp);
+    ans = max(ans, ok(n + 2, mp, dp) + n * mp[n]);
+    return dp[n] = ans;
+}
 void solve(void)
 {
     int n;
     cin >> n;
-    vector<int> v(n);
-    // for(auto &it:v)cin>>it;
+    vector<int> dp(N, -1), mp(N, 0);
+    for (int i = 0, x; i < n; i++)
+    {
+        cin >> x;
+        mp[x]++;
+    }
+    cout << ok(0, mp, dp) << '\n';
 }
 //-----------------------------------------------------------------------------------------
 signed main()

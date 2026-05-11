@@ -20,10 +20,15 @@ const int N = 1e5 + 10;
 //-----------------------------------------------------------------------------------------
 void solve(void)
 {
-    int n;
-    cin >> n;
-    vector<int> v(n);
-    // for(auto &it:v)cin>>it;
+    int a, b, c;
+    cin >> a >> b >> c;
+    int ans = a * b * c;
+    ans = max(ans, a + b + c);
+    ans = max(ans, a + b * c);
+    ans = max(ans, a * b + c);
+    ans = max(ans, a * (b + c));
+    ans = max(ans, (a + b) * c);
+    cout << ans << '\n';
 }
 //-----------------------------------------------------------------------------------------
 signed main()
