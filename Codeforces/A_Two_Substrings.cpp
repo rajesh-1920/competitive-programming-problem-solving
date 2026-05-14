@@ -20,10 +20,25 @@ const int N = 1e5 + 10;
 //-----------------------------------------------------------------------------------------
 void solve(void)
 {
-    int n;
-    cin >> n;
-    vector<int> v(n);
-    // for(auto &it:v)cin>>it;
+    string s;
+    cin >> s;
+    for (int i = 0; i + 1 < s.size(); i++)
+        if (s[i] == 'A' && s[i + 1] == 'B')
+            for (int ii = i + 2; ii + 1 < s.size(); ii++)
+                if (s[ii] == 'B' && s[ii + 1] == 'A')
+                {
+                    cout << "YES\n";
+                    return;
+                }
+    for (int i = 0; i + 1 < s.size(); i++)
+        if (s[i] == 'B' && s[i + 1] == 'A')
+            for (int ii = i + 2; ii + 1 < s.size(); ii++)
+                if (s[ii] == 'A' && s[ii + 1] == 'B')
+                {
+                    cout << "YES\n";
+                    return;
+                }
+    cout << "NO\n";
 }
 //-----------------------------------------------------------------------------------------
 signed main()
