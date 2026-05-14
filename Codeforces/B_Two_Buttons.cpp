@@ -1,6 +1,6 @@
 // Author:  Rajesh Biswas
 // CF    :  rajesh_1920
-// Date  :  14.05.2026
+// Date  :  12.05.2026
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -20,10 +20,21 @@ const int N = 1e5 + 10;
 //-----------------------------------------------------------------------------------------
 void solve(void)
 {
-    int n;
-    cin >> n;
-    vector<int> v(n);
-    // for(auto &it:v)cin>>it;
+    int n, m, ans = 0;
+    cin >> n >> m;
+    while (true)
+    {
+        if (n >= m)
+        {
+            cout << ans + n - m;
+            return;
+        }
+        if (m & 1)
+            m++;
+        else
+            m >>= 1;
+        ans++;
+    }
 }
 //-----------------------------------------------------------------------------------------
 signed main()

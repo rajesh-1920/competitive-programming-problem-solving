@@ -1,6 +1,6 @@
 // Author:  Rajesh Biswas
 // CF    :  rajesh_1920
-// Date  :  14.05.2026
+// Date  :  12.05.2026
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -20,10 +20,28 @@ const int N = 1e5 + 10;
 //-----------------------------------------------------------------------------------------
 void solve(void)
 {
-    int n;
-    cin >> n;
-    vector<int> v(n);
-    // for(auto &it:v)cin>>it;
+    string s, ans;
+    cin >> s;
+    int i = 0;
+    while (i < s.size())
+    {
+        if (i + 2 < s.size() && s[i] == 'W' && s[i + 1] == 'U' && s[i + 2] == 'B')
+        {
+            i += 3;
+            if (!ans.empty() && ans.back() != ' ')
+                ans.push_back(' ');
+        }
+        else
+        {
+            ans.push_back(s[i]);
+            i++;
+        }
+    }
+    reverse(all(ans));
+    while (!ans.empty() && ans.back() == ' ')
+        ans.pop_back();
+    reverse(all(ans));
+    cout << ans << '\n';
 }
 //-----------------------------------------------------------------------------------------
 signed main()
