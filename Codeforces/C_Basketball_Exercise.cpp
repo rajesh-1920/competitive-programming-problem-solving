@@ -1,6 +1,6 @@
 // Author:  Rajesh Biswas
-// CF    :  rajesh-1920
-// Date  :  16.06.2025
+// CF    :  rajesh_1920
+// Date  :  23.05.2026
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -18,36 +18,30 @@ const int inf = 9e16 + 7;
 const int MOD = 1e9 + 7;
 const int N = 1e5 + 10;
 //-----------------------------------------------------------------------------------------
-int dp[N][3];
-int ok(int i, int p, vector<int> &v, vector<int> &b)
+int ok(int n, int fl, vector<int> &va, vector<int> &vb, vector<vector<int>> &dp)
 {
-    if (i == v.size())
+    if (n == va.size())
         return 0;
-    if (dp[i][p] != -1)
-        return dp[i][p];
-    int ans = ok(i + 1, 0, v, b);
-    if (p == 0)
-    {
-        ans = max(ans, ok(i + 1, 1, v, b) + v[i]);
-        ans = max(ans, ok(i + 1, 2, v, b) + b[i]);
-    }
-    if (p == 1)
-        ans = max(ans, ok(i + 1, 2, v, b) + b[i]);
-    if (p == 2)
-        ans = max(ans, ok(i + 1, 1, v, b) + v[i]);
-    return dp[i][p] = ans;
+    if (dp[n][fl] != -1)
+        return dp[n][fl];
+    int ans = ok(n + 1, 0, va, vb, dp);
+    if (fl != 1)
+        ans = max(ans, ok(n + 1, 1, va, vb, dp) + va[n]);
+    if (fl != 2)
+        ans = max(ans, ok(n + 1, 2, va, vb, dp) + vb[n]);
+    return dp[n][fl] = ans;
 }
 void solve(void)
 {
-    memset(dp, -1, sizeof(dp));
     int n;
     cin >> n;
-    vector<int> v(n), b(n);
-    for (auto &it : v)
+    vector<int> va(n), vb(n);
+    for (auto &it : va)
         cin >> it;
-    for (auto &it : b)
+    for (auto &it : vb)
         cin >> it;
-    cout << ok(0, 0, v, b) << '\n';
+    vector<vector<int>> dp(n, vector<int>(3, -1));
+    cout << ok(0, 0, va, vb, dp) << '\n';
 }
 //-----------------------------------------------------------------------------------------
 signed main()
