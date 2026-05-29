@@ -1,6 +1,6 @@
 // Author:  Rajesh Biswas
-// CF    :  rajesh-1920
-// Date  :  06.07.2025
+// CF    :  rajesh_1920
+// Date  :  30.05.2026
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -22,35 +22,40 @@ void solve(void)
 {
     int n, m;
     cin >> n >> m;
-    if (m < n || m > (n * (n + 1)) / 2)
+    if (n * (n + 1) < 2 * m || n > m)
     {
         cout << -1 << '\n';
         return;
     }
     set<int> st;
+    int root = 1;
     for (int i = 1; i <= n; i++)
-        st.insert(i);
-    vector<int> ans;
-    while (st.size())
     {
-        int t = st.size();
-        t--;
-        if (st.find((m - t)) != st.end())
-        {
-            st.erase(m - t);
-            ans.push_back(m - t);
-            break;
-        }
-        t = *(--st.end());
-        st.erase(t);
-        ans.push_back(t);
-        m -= t;
+        if (i + n - 1 <= m)
+            root = i;
+        st.insert(i);
     }
-    for (auto it : st)
-        ans.push_back(it);
-    cout << ans[0] << '\n';
-    for (int i = 1; i < ans.size(); i++)
-        cout << ans[i - 1] << ' ' << ans[i] << '\n';
+    cout << root << '\n';
+    st.erase(root);
+    m -= root;
+    while (!st.empty())
+    {
+        if (root == 1)
+            break;
+        cout << root << ' ';
+        int parbo = m - st.size() + 1;
+        root = *(--st.upper_bound(parbo));
+        st.erase(root);
+        m -= root;
+        cout << root << '\n';
+    }
+    while (!st.empty())
+    {
+        cout << root << ' ';
+        root = *st.begin();
+        st.erase(st.begin());
+        cout << root << '\n';
+    }
 }
 //-----------------------------------------------------------------------------------------
 signed main()
