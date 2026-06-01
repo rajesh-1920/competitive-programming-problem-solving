@@ -1,12 +1,12 @@
 // Author:  Rajesh Biswas
 // CF    :  rajesh_1920
-// Date  :  17.01.2026
+// Date  :  01.06.2026
 
 #include <bits/stdc++.h>
 using namespace std;
 //----------------------------(definition section)-----------------------------------------
-#define dbg(x) cout << #x << " = " << x << '\n';
-// #define int long int
+#define dbg(x) cout << #x << " = " << x << '\n'
+#define int long long int
 #define fi first
 #define sc second
 
@@ -15,112 +15,32 @@ using namespace std;
 
 const double eps = 1e-1;
 const int inf = 9e16 + 7;
-const int MOD = 1e8;
+const int MOD = 1e9 + 7;
 const int N = 1e5 + 10;
-//------------------------------(solve)----------------------------------------------------
-struct stc
+//-----------------------------------------------------------------------------------------
+struct node
 {
-    int l, r, ind;
+    int l, r;
 };
-int len = 1000000;
-bool cmp(stc &a, stc &b)
-{
-    if (a.l / len == b.l / len)
-        return a.r > b.r;
-    return a.l / len < b.l / len;
-}
 void solve(void)
 {
     string s;
-    cin >> s;
-    int n = s.size();
-    len = sqrt(n) + 1;
-    int q;
-    cin >> q;
-    vector<stc> query(q);
-    for (int i = 0; i < q; i++)
+    int n;
+    cin >> s >> n;
+    vector<int> v(s.size(), 0);
+    stack<int> st;
+    for (int i = 0; i < s.size(); i++)
     {
-        cin >> query[i].l >> query[i].r;
-        query[i].l--, query[i].r--;
-        query[i].ind = i;
+        if (s[i] == '(')
+            st.push(i);
+        else if (!st.empty())
+        {
+            v[i] = v[st.top()] = 1;
+            st.pop();
+        }
     }
-    sort(all(query), cmp);
-    vector<int> ans(q);
-    int curl = 0, curr = -1, cleft = 0, cright = 0, cans = 0;
-    vector<int> cont(n + 5, -1);
-    set<int> stl, str;
-    for (auto &it : query)
-    {
-        while (curr < it.r)
-        {
-            curr++;
-            if (s[curr] == ')')
-                if (cleft > 0)
-                {
-                    cleft--, cans++;
-                    int t = *(--stl.end());
-                    stl.erase(t);
-                    cont[t] = curr;
-                    cont[curr] = t;
-                }
-                else
-                    cright++, str.insert(curr);
-            else
-                cleft++, stl.insert(curr);
-        }
-        while (curl > it.l)
-        {
-            curl--;
-            if (s[curl] == '(')
-                if (cright > 0)
-                {
-                    cans++, cright--;
-                    int t = *str.begin();
-                    str.erase(str.begin());
-                    cont[curl] = t;
-                    cont[t] = curl;
-                }
-                else
-                    cleft++, stl.insert(curl);
-            else
-                cright++, str.insert(curl);
-        }
-        while (curr > it.r)
-        {
-            if (s[curr] == ')')
-                if (cont[curr] != -1)
-                {
-                    cleft++, cans--;
-                    stl.insert(cont[curr]);
-                    cont[cont[curr]] = -1;
-                    cont[curr] = -1;
-                }
-                else
-                    cright--, str.erase(curr);
-            else
-                cleft--, stl.erase(curr);
-            curr--;
-        }
-        while (curl < it.l)
-        {
-            if (s[curl] == '(')
-                if (cont[curl] != -1)
-                {
-                    cans--, cright++;
-                    str.insert(cont[curl]);
-                    cont[cont[curl]] = -1;
-                    cont[curl] = -1;
-                }
-                else
-                    cleft--, stl.erase(curl);
-            else
-                cright--, str.erase(curl);
-            curl++;
-        }
-        ans[it.ind] = cans * 2;
-    }
-    for (auto &it : ans)
-        cout << it << '\n';
+    for (auto &it : v)
+        cout << it << ' ';
 }
 //-----------------------------------------------------------------------------------------
 signed main()

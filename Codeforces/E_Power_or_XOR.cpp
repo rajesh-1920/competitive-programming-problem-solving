@@ -16,27 +16,49 @@ using namespace std;
 const double eps = 1e-1;
 const int inf = 9e16 + 7;
 const int MOD = 1e9 + 7;
-const int N = 1e5 + 10;
+const int N = 2e6 + 10;
+
+int modpow(int a, int b, int m)
+{
+  int ans = 1;
+  while (b)
+  {
+    if (b & 1)
+      ans = (ans * a) % m;
+    a = (a * a) % m;
+    b >>= 1;
+  }
+  return ans;
+}
+// 1048576
 //-----------------------------------------------------------------------------------------
 void solve(void)
 {
-    int n;
-    cin >> n;
-    vector<int> v(n);
-    // for(auto &it:v)cin>>it;
+  int n, k;
+  cin >> n >> k;
+  vector<int> v(n), cnt(N, 0);
+  for (auto &it : v)
+    cin >> it;
+  for (int i = 0; i <= k; i++)
+    cnt[v[i]]++;
+  for (int i = 0; i <= 10; i++)
+  {
+    cnt[i] %= 2;
+    cout << cnt[i];
+  }
 }
 //-----------------------------------------------------------------------------------------
 signed main()
 {
-    // cout << fixed << showpoint << setprecision(10);
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL);
-    int test = 1, T;
-    // cin >> test;
-    for (T = 1; T <= test; T++)
-    {
-        // cout << "Case " << T << ": ";
-        solve();
-    }
-    return 0;
+  // cout << fixed << showpoint << setprecision(10);
+  ios_base::sync_with_stdio(false);
+  cin.tie(NULL);
+  int test = 1, T;
+  // cin >> test;
+  for (T = 1; T <= test; T++)
+  {
+    // cout << "Case " << T << ": ";
+    solve();
+  }
+  return 0;
 }
