@@ -1,12 +1,12 @@
 // Author:  Rajesh Biswas
 // CF    :  rajesh_1920
-// Date  :  16.01.2026
+// Date  :  04.06.2026
 
 #include <bits/stdc++.h>
 using namespace std;
 //----------------------------(definition section)-----------------------------------------
-#define dbg(x) cout << #x << " = " << x << '\n';
-#define int long int
+#define Dbg(x) cout << #x << " = " << x << '\n'
+#define int long long int
 #define fi first
 #define sc second
 
@@ -15,56 +15,44 @@ using namespace std;
 
 const double eps = 1e-1;
 const int inf = 9e16 + 7;
-const int MOD = 1e8;
+const int MOD = 1e9 + 7;
 const int N = 1e5 + 10;
-//------------------------------(solve)----------------------------------------------------
+//-----------------------------------------------------------------------------------------
 void solve(void)
 {
-    string t, s = "#";
-    cin >> t;
-    for (auto &it : t)
-        s += it, s += "#";
-    int n = s.size(), C = 0, R = 0;
-    vector<int> p(n, 0);
-    for (int i = 0; i < n; i++)
-    {
-        int mir = 2 * C - i;
-        if (i < R)
-            p[i] = min(R - i, p[mir]);
-        int a = i + p[i] + 1, b = i - p[i] - 1;
-        // if (s[i] == '#')
+    string s;
+    cin >> s;
+    vector<int> v(s.size(), 0);
+    stack<int> stc;
+    for (int i = 0; i < s.size(); i++)
+        if (s[i] == '(')
+            stc.push(i);
+        else if (!stc.empty())
         {
-            while (a < n && b >= 0 &&
-                   ((s[a] == '(' && s[b] == ')') || (s[a] == ')' && s[b] == '(') || (s[a] == '#' && s[b] == '#')))
-                p[i]++, a++, b--;
-            a--, b++;
-            while (p[i] > 0 && ((s[a] == '(' && s[b] == ')') || (s[a] == '#' && s[b] == '#')))
-                p[i]--, a--, b++;
+            v[i] = 1, v[stc.top()] = 1;
+            stc.pop();
         }
-        if (i + p[i] > R)
-            C = i, R = i + p[i];
-    }
-    int mx = 0, ans = 0;
-    for (int i = 1; i + 1 < n; i++)
-        if (mx < p[i] && s[i] == '#' && ((s[i - 1] == ')' && s[i + 1] == '(') || (s[i - 1] == '(' && s[i + 1] == ')')))
-            mx = p[i];
-    // cout << s << '\n';
-    // for (auto it : p)
-    //     cout << it;
-    // cout << '\n';
-
-    if (mx)
-    {
-        for (int i = 0; i < n; i++)
-            if (mx == p[i] && s[i] == '#' &&
-                ((s[i - 1] == ')' && s[i + 1] == '(') || (s[i - 1] == '(' && s[i + 1] == ')')))
-                ans++;
-        if (mx & 1)
-            mx++;
-    }
-    else
+    int cn = 0, cnt = 0, ans = 0;
+    for (auto &it : v)
+        if (it)
+        {
+            cn++;
+            cnt = max(cn, cnt);
+        }
+        else
+            cn = 0;
+    cn = 0;
+    for (auto &it : v)
+        if (it)
+        {
+            cn++;
+            ans += cn == cnt;
+        }
+        else
+            cn = 0;
+    if (cnt == 0)
         ans = 1;
-    cout << mx << ' ' << ans << '\n';
+    cout << cnt << ' ' << ans << '\n';
 }
 //-----------------------------------------------------------------------------------------
 signed main()
