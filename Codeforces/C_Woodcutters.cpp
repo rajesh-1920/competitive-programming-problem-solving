@@ -1,6 +1,6 @@
 // Author:  Rajesh Biswas
-// CF    :  rajesh-1920
-// Date  :  28.05.2025
+// CF    :  rajesh_1920
+// Date  :  16.06.2026
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -21,7 +21,6 @@ const int N = 1e5 + 10;
 int dp[N][2];
 int ok(int n, int fl, vector<pair<int, int>> &v)
 {
-    // dbg(fl);
     if (n == v.size() - 1)
         return 0;
     if (dp[n][fl] != -1)

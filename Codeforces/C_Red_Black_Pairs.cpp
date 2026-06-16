@@ -21,9 +21,19 @@ const int N = 1e5 + 10;
 void solve(void)
 {
   int n;
-  cin >> n;
-  vector<int> v(n);
-  // for (auto &it : v)cin >> it;
+  string a, b;
+  cin >> n >> a >> b;
+  int ans = 0;
+  for (int i = 0; i < n;)
+  {
+    if ((i + 1 < n) && (a[i] == b[i] && a[i + 1] == b[i + 1]))
+      i += 2;
+    else if ((i + 1 < n) && (a[i] == a[i + 1] && b[i] == b[i + 1]))
+      i += 2;
+    else
+      ans += (a[i] != b[i]), i++;
+  }
+  cout << ans << '\n';
 }
 //-----------------------------------------------------------------------------------------
 signed main()
@@ -32,7 +42,7 @@ signed main()
   ios_base::sync_with_stdio(false);
   cin.tie(NULL);
   int test = 1, T;
-  // cin >> test;
+  cin >> test;
   for (T = 1; T <= test; T++)
   {
     // cout << "Case " << T << ": ";
