@@ -20,10 +20,18 @@ const int N = 1e5 + 10;
 //-----------------------------------------------------------------------------------------
 void solve(void)
 {
-  int n;
-  cin >> n;
-  vector<int> v(n);
-  // for (auto &it : v)cin >> it;
+  int n,a,b,ans=0;;
+  cin>>n>>a>>b;
+  double k=(1.0*a)/b;
+  while(n--){
+    int x,y;
+    cin>>x>>y;
+    double xx=x,yy=y;
+   
+    if((xx-yy)/xx>=k)
+    ans+=y;
+  }
+  cout<<ans<<'\n';
 }
 //-----------------------------------------------------------------------------------------
 signed main()

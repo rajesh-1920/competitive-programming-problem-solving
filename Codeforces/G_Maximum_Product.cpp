@@ -20,10 +20,33 @@ const int N = 1e5 + 10;
 //-----------------------------------------------------------------------------------------
 void solve(void)
 {
-  int n;
-  cin >> n;
-  vector<int> v(n);
-  // for (auto &it : v)cin >> it;
+  string s1,s2;
+  cin>>s1>>s2;
+  string ans,temp=s2;
+  reverse(all(s1));
+  reverse(all(s2));
+  while(s1.size()<s2.size())s1.push_back('0');
+  while(s1.size()>s2.size())s2.push_back('0');
+  while(!s1.empty()&&s1.back()==s2.back()){
+    ans.push_back(s1.back());
+    s1.pop_back(),s2.pop_back();
+  }
+  if(s1.size()==1){
+    ans.push_back(char(s2.back()));
+    s1.pop_back(),s2.pop_back();
+  }
+  else if(!s1.empty()){
+    if(s2.back()!='1')
+      ans.push_back(char(s2.back()-1));
+    s1.pop_back(),s2.pop_back();
+  }
+  while(!s1.empty()){
+    ans.push_back('9');
+    s1.pop_back(),s2.pop_back();
+  }
+  int t1=1,t2=1;
+  for(auto &it:)
+  cout<<ans<<'\n';
 }
 //-----------------------------------------------------------------------------------------
 signed main()

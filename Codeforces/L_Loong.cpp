@@ -21,9 +21,13 @@ const int N = 1e5 + 10;
 void solve(void)
 {
   int n;
-  cin >> n;
-  vector<int> v(n);
-  // for (auto &it : v)cin >> it;
+  cin>>n;
+  set<int>st;
+  for(int i=2024;i<=9999+50;i+=12)
+  st.insert(i);
+for(int i=2024;i>=0;i-=12)
+  st.insert(i);
+cout<<(*st.upper_bound(n))<<'\n';
 }
 //-----------------------------------------------------------------------------------------
 signed main()
