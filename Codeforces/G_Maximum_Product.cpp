@@ -1,6 +1,6 @@
 // Author:  Rajesh Biswas
 // CF    :  rajesh_1920
-// Date  :  11.09.2026
+// Date  :  12.09.2026
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -18,35 +18,36 @@ const int inf = 9e16 + 7;
 const int MOD = 1e9 + 7;
 const int N = 1e5 + 10;
 //-----------------------------------------------------------------------------------------
+int mul(int n){
+  int a=1;
+  while(n){
+    a*=(n%10);
+    n/=10;
+  }
+  return a;
+}
 void solve(void)
 {
-  string s1,s2;
-  cin>>s1>>s2;
-  string ans,temp=s2;
-  reverse(all(s1));
-  reverse(all(s2));
-  while(s1.size()<s2.size())s1.push_back('0');
-  while(s1.size()>s2.size())s2.push_back('0');
-  while(!s1.empty()&&s1.back()==s2.back()){
-    ans.push_back(s1.back());
-    s1.pop_back(),s2.pop_back();
+  int a,b;
+  cin>>a>>b;
+  int x=1,cnt=0;
+  while(x<b)
+    x*=10,cnt++;
+  x/=10,cnt--;
+  priority_queue<pair<int,int>>pq;
+  pq.push({mul(b),b});
+
+  while(x){
+    int tb=b-x,t=1;
+    for(int i=1;i<=cnt;i++)
+      tb/=10;
+    for(int i=1;i<=cnt;i++)
+      tb=tb*10+9;
+    if(tb>=a)
+      pq.push({mul(tb),tb});
+    x/=10,cnt--;
   }
-  if(s1.size()==1){
-    ans.push_back(char(s2.back()));
-    s1.pop_back(),s2.pop_back();
-  }
-  else if(!s1.empty()){
-    if(s2.back()!='1')
-      ans.push_back(char(s2.back()-1));
-    s1.pop_back(),s2.pop_back();
-  }
-  while(!s1.empty()){
-    ans.push_back('9');
-    s1.pop_back(),s2.pop_back();
-  }
-  int t1=1,t2=1;
-  for(auto &it:)
-  cout<<ans<<'\n';
+  cout<<(pq.top().sc)<<'\n';
 }
 //-----------------------------------------------------------------------------------------
 signed main()
