@@ -20,10 +20,57 @@ const int N = 1e5 + 10;
 //-----------------------------------------------------------------------------------------
 void solve(void)
 {
-  int n;
-  cin >> n;
-  vector<int> v(n);
-  // for (auto &it : v)cin >> it;
+  int k,cnt=0,ans=0;
+  string s;
+  cin>>k>>s;
+  vector<int>left(s.size(),0),right(s.size(),0);
+  for(int i=0;i<s.size();i++){
+    left[i]=cnt;
+    if(s[i]=='1')
+      {
+        ans+=(cnt*(cnt+1)/2);
+        cnt=0;
+      }
+    else
+      cnt++;
+  }
+  ans+=(cnt*(cnt+1)/2);
+  if(k==0){
+    cout<<ans<<'\n';
+    return;
+  }
+  cnt=0;
+  for(int i=s.size()-1;i>=0;i--){
+    right[i]=cnt;
+    if(s[i]=='1')
+      cnt=0;
+    else
+      cnt++;
+  }
+
+  int l=0,r=0;
+  ans=0,cnt=1;
+  while(l<s.size()&&s[l]=='0'){
+      l++;
+    }
+    r=l+1;
+
+  while(l<s.size()){
+     while(l<s.size()&&s[l]=='0'){
+      l++;
+    }
+    while(r<s.size()&&cnt<k){
+      cnt+=(s[r]=='1');
+      r++;
+    }
+    if(cnt==k &&l<s.size()&&r<=s.size())
+        {
+          
+          ans+=(left[l]+1)*(right[r-1]+1);
+        }
+    l++,cnt--;
+  }
+  cout<<ans<<'\n';
 }
 //-----------------------------------------------------------------------------------------
 signed main()
