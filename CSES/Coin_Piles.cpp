@@ -1,11 +1,12 @@
 // Author:  Rajesh Biswas
-// CF    :  rajesh-1920
-// Date  :  31.10.2025
+// CF    :  rajesh_1920
+// Date  :  06.10.2026
 
 #include <bits/stdc++.h>
 using namespace std;
-//----------------------------(definition section)-----------------------------------------
-#define dbg(x) cout << #x << " = " << x << '\n';
+//----------------------------(definition
+//section)-----------------------------------------
+#define Dbg(x) cout << #x << " = " << x << '\n';
 #define int long long int
 #define fi first
 #define sc second
@@ -18,29 +19,26 @@ const int inf = 9e16 + 7;
 const int MOD = 1e9 + 7;
 const int N = 1e5 + 10;
 //------------------------------(solve)----------------------------------------------------
-void solve(void)
-{
-    int a, b;
-    cin >> a >> b;
-    if (a > b)
-        swap(a, b);
-    if ((a + b) % 3 == 0 && 2 * a >= b)
-        cout << "YES\n";
-    else
-        cout << "NO\n";
+void solve(void) {
+  int a, b;
+  cin >> a >> b;
+  if (a < b)
+    swap(a, b);
+  if ((a + b) % 3 == 0 && a <= 2 * b)
+    cout << "YES\n";
+  else
+    cout << "NO\n";
 }
 //-----------------------------------------------------------------------------------------
-signed main()
-{
-    // cout << fixed << showpoint << setprecision(10);
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL);
-    int test = 1, T;
-    cin >> test;
-    for (T = 1; T <= test; T++)
-    {
-        // cout << "Case " << T << ": ";
-        solve();
-    }
-    return 0;
+signed main() {
+  // cout << fixed << showpoint << setprecision(10);
+  ios_base::sync_with_stdio(false);
+  cin.tie(NULL);
+  int test = 1, T;
+  cin >> test;
+  for (T = 1; T <= test; T++) {
+    // cout << "Case " << T << ": ";
+    solve();
+  }
+  return 0;
 }

@@ -1,11 +1,12 @@
 // Author:  Rajesh Biswas
-// CF    :  rajesh-1920
-// Date  :  31.10.2025
+// CF    :  rajesh_1920
+// Date  :  07.10.2026
 
 #include <bits/stdc++.h>
 using namespace std;
-//----------------------------(definition section)-----------------------------------------
-#define dbg(x) cout << #x << " = " << x << '\n';
+//----------------------------(definition
+// section)-----------------------------------------
+#define Dbg(x) cout << #x << " = " << x << '\n';
 #define int long long int
 #define fi first
 #define sc second
@@ -18,37 +19,37 @@ const int inf = 9e16 + 7;
 const int MOD = 1e9 + 7;
 const int N = 1e5 + 10;
 //------------------------------(solve)----------------------------------------------------
-vector<string> ok(int n)
-{
-    if (n == 1)
-        return {"0", "1"};
-    vector<string> res, temp = ok(n - 1);
-    for (auto it : temp)
-        res.push_back("0" + it);
-    for (int i = temp.size() - 1; i >= 0; i--)
-        res.push_back("1" + temp[i]);
-    return res;
-}
-void solve(void)
-{
-    int n;
-    cin >> n;
-    vector<string> v = ok(n);
-    for (auto it : v)
-        cout << it << '\n';
+void solve(void) {
+  int n;
+  cin >> n;
+  vector<vector<int>> v(1LL << n, vector<int>(n, 0));
+  int t = 1;
+  for (int j = n - 1; j >= 0; j--) {
+    int fl = 1, cnt = 0;
+    for (int i = t; i < v.size(); i++) {
+      v[i][j] = fl;
+      cnt++;
+      if (cnt == t * 2)
+        cnt = 0, fl ^= 1;
+    }
+    t *= 2;
+  }
+  for (auto &it : v) {
+    for (auto &ii : it)
+      cout << ii;
+    cout << '\n';
+  }
 }
 //-----------------------------------------------------------------------------------------
-signed main()
-{
-    // cout << fixed << showpoint << setprecision(10);
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL);
-    int test = 1, T;
-    // cin >> test;
-    for (T = 1; T <= test; T++)
-    {
-        // cout << "Case " << T << ": ";
-        solve();
-    }
-    return 0;
+signed main() {
+  // cout << fixed << showpoint << setprecision(10);
+  ios_base::sync_with_stdio(false);
+  cin.tie(NULL);
+  int test = 1, T;
+  // cin >> test;
+  for (T = 1; T <= test; T++) {
+    // cout << "Case " << T << ": ";
+    solve();
+  }
+  return 0;
 }
