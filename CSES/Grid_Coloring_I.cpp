@@ -19,21 +19,20 @@ const int inf = 9e16 + 7;
 const int MOD = 1e9 + 7;
 const int N = 1e5 + 10;
 //------------------------------(solve)----------------------------------------------------
+
 void solve(void) {
-  int n;
-  map<int, int> mp;
-  cin >> n;
-  while (n--) {
-    int x, y;
-    cin >> x >> y;
-    mp[x]++, mp[y + 1]--;
+  int n, m;
+  cin >> n >> m;
+  vector<string> v(n), temp(n);
+  for (int i = 0; i < n; i++) {
+    cin >> v[i];
+    for (int j = 0; j < m; j++)
+      temp[i].push_back('*');
   }
-  int ans = 0, ls = 0;
-  for (auto &it : mp) {
-    ls += it.sc;
-    ans = max(ans, ls);
-  }
-  cout << ans << '\n';
+  n = 1;
+  ok(0, 0, n, temp, v);
+  if (n)
+    cout << "IMPOSSIBLE\n";
 }
 //-----------------------------------------------------------------------------------------
 signed main() {

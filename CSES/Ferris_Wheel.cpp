@@ -1,11 +1,12 @@
 // Author:  Rajesh Biswas
-// CF    :  rajesh-1920
-// Date  :  31.10.2025
+// CF    :  rajesh_1920
+// Date  :  09.10.2026
 
 #include <bits/stdc++.h>
 using namespace std;
-//----------------------------(definition section)-----------------------------------------
-#define dbg(x) cout << #x << " = " << x << '\n';
+//----------------------------(definition
+// section)-----------------------------------------
+#define Dbg(x) cout << #x << " = " << x << '\n';
 #define int long long int
 #define fi first
 #define sc second
@@ -18,46 +19,32 @@ const int inf = 9e16 + 7;
 const int MOD = 1e9 + 7;
 const int N = 1e5 + 10;
 //------------------------------(solve)----------------------------------------------------
-void solve(void)
-{
-    int n, xx;
-    cin >> n >> xx;
-    multiset<int> st;
-    while (n--)
-    {
-        int x;
-        cin >> x;
-        st.insert(x);
-    }
-    int ans = 0;
-    while (st.size())
-    {
-        int x = *(--st.end());
-        st.erase(--st.end());
-        int t = xx - x;
-        auto it = st.upper_bound(t);
-        if (it != st.begin())
-        {
-            it--;
-            if (*it <= xx - x)
-                st.erase(it);
-        }
-        ans++;
-    }
-    cout << ans << '\n';
+void solve(void) {
+  int n, k;
+  cin >> n >> k;
+  vector<int> v(n);
+  for (auto &it : v)
+    cin >> it;
+  sort(all(v));
+  int ans = 0, l = 0;
+  n--;
+  while (l <= n) {
+    if (v[l] + v[n] <= k)
+      l++;
+    ans++, n--;
+  }
+  cout << ans << '\n';
 }
 //-----------------------------------------------------------------------------------------
-signed main()
-{
-    // cout << fixed << showpoint << setprecision(10);
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL);
-    int test = 1, T;
-    // cin >> test;
-    for (T = 1; T <= test; T++)
-    {
-        // cout << "Case " << T << ": ";
-        solve();
-    }
-    return 0;
+signed main() {
+  // cout << fixed << showpoint << setprecision(10);
+  ios_base::sync_with_stdio(false);
+  cin.tie(NULL);
+  int test = 1, T;
+  // cin >> test;
+  for (T = 1; T <= test; T++) {
+    // cout << "Case " << T << ": ";
+    solve();
+  }
+  return 0;
 }
