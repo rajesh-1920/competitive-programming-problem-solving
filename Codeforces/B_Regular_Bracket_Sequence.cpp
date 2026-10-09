@@ -1,10 +1,11 @@
 // Author:  Rajesh Biswas
 // CF    :  rajesh_1920
-// Date  :  09.10.2026
+// Date  :  08.10.2026
 
 #include <bits/stdc++.h>
 using namespace std;
-//----------------------------(definition section)-----------------------------------------
+//----------------------------(definition
+// section)-----------------------------------------
 #define Dbg(x) cout << #x << " = " << x << '\n'
 #define int long long int
 #define fi first
@@ -18,23 +19,30 @@ const int inf = 9e16 + 7;
 const int MOD = 1e9 + 7;
 const int N = 1e5 + 10;
 //-----------------------------------------------------------------------------------------
-void solve(void)
-{
-  int n;
-  cin >> n;
-  vector<int> v(n);
-  // for (auto &it : v)cin >> it;
+void solve(void) {
+  string s;
+  cin >> s;
+  int ans = s.size(), cnt = 0;
+  for (auto &it : s)
+    if (it == '(')
+      cnt++;
+    else {
+      if (cnt)
+        cnt--;
+      else
+        ans--;
+    }
+  ans -= cnt;
+  cout << ans << '\n';
 }
 //-----------------------------------------------------------------------------------------
-signed main()
-{
+signed main() {
   // cout << fixed << showpoint << setprecision(10);
   ios_base::sync_with_stdio(false);
   cin.tie(NULL);
   int test = 1, T;
   // cin >> test;
-  for (T = 1; T <= test; T++)
-  {
+  for (T = 1; T <= test; T++) {
     // cout << "Case " << T << ": ";
     solve();
   }
